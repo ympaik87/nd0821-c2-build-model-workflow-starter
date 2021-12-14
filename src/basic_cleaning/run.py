@@ -34,6 +34,10 @@ def go(args):
         input_artifact_df['last_review'])
     logger.info('Dataset `last_review` type is set as datetime')
 
+    idx = input_artifact_df['longitude'].between(-74.25, -73.50) & \
+        input_artifact_df['latitude'].between(40.5, 41.2)
+    input_artifact_df = input_artifact_df[idx].copy()
+
     output_artifact_path = args.output_artifact
     input_artifact_df.to_csv(output_artifact_path, index=False)
     logger.info("Artifact is saved to %s", output_artifact_path)
